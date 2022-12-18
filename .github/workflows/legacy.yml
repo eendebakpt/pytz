@@ -4,11 +4,11 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     strategy:
       matrix:
-        python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["2.7", "3.5", "3.6", "3.7", "3.8", "3.9", "3.10"]
 
     steps:
       - uses: actions/checkout@v3
@@ -31,8 +31,3 @@ jobs:
         run: |
           cd build/dist/pytz/tests
           python test_docs.py -vv
-      - name: zdump Tests
-        if: ${{ matrix.python-version == '3.11' }}
-        run: |
-          python gen_tests.py
-          python test_zdump.py -vv
